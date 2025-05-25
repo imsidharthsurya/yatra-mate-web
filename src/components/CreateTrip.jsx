@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import axios from "axios";
+import { budgetData, travellerData } from "@/utils/constants";
+import Tiles from "./Tiles";
 
 const CreateTrip = () => {
   const [placeName, setPlaceName] = useState("");
   const [suggestedPlace, setSuggestedPlace] = useState([]);
   const [noPlaceFound, setNoPlaceFound] = useState(false);
   const [skipSearch, setSkipSearch] = useState(false);
+  const [budget, setBudget] = useState("");
+  const [traveller, setTraveller] = useState("");
+
+  const handleBudgetClick = (budget) => {
+    setBudget(budget?.title);
+  };
+  const handleTravellerClick = (traveller) => {
+    setTraveller(traveller?.title);
+  };
   useEffect(() => {
     if (skipSearch) {
       //reset skipsearch
@@ -54,7 +65,7 @@ const CreateTrip = () => {
     }
   };
   return (
-    <div className="sm:px-10 md:px-32 lg:px-72 px-5 mt-10">
+    <div className="sm:px-10 md:px-32 lg:px-72 px-5 mt-10 mb-[300px]">
       <h2 className="text-3xl font-bold">
         Tell us your travel preferences 🏕️🌴
       </h2>
@@ -63,7 +74,7 @@ const CreateTrip = () => {
         a customized itinerary based on your preferences.
       </p>
       <div className="relative mt-20">
-        <p className=" text-2xl font-medium">What is destination of choice?</p>
+        <p className=" text-xl font-medium">What is destination of choice?</p>
         <Input
           type="text"
           value={placeName}
@@ -98,11 +109,23 @@ const CreateTrip = () => {
             </p>
           </div>
         )}
-
-        <p className="mt-15 text-2xl font-medium">
+        <p className="mt-15 text-xl font-medium">
           For how many days are you planning your trip?
         </p>
         <Input type="number" placeholder="Ex.3" className="mt-3" />
+
+        <Tiles
+          title={"What is Your Budget?"}
+          tilesData={budgetData}
+          handleTileClick={handleBudgetClick}
+          selectedData={budget}
+        />
+        <Tiles
+          title={"Who do you plan on traveling with on your next adventure?"}
+          tilesData={travellerData}
+          handleTileClick={handleTravellerClick}
+          selectedData={traveller}
+        />
       </div>
     </div>
   );
