@@ -1,12 +1,13 @@
 import React from "react";
-import { Button } from "./components/ui/button";
+import Header from "./components/Header";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="m-10">
-      <p>Hello World</p>
-      <Button>Sign In</Button>
-    </div>
+    <>
+      <Header />
+      <Outlet />
+    </>
   );
 }
 
